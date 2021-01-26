@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 
     switch (from_bmp(old, &img)) {
         case READ_OK:
-            printf("Read successfully\n");
+            fprintf(stdout, "Read successfully\n");
             break;
         case READ_INVALID_SIGNATURE:
             err("Invalid signature\n");
@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     struct image new_img = rotate(img);
     switch (to_bmp(new, &new_img)) {
         case WRITE_OK:
-            printf("Written successfully\n");
+            fprintf(stdout, "Written successfully\n");
             break;
         case WRITE_ERROR:
             err("Some errors occurred\n");
