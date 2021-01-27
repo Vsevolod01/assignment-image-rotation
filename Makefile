@@ -6,7 +6,7 @@ all: image-rotation
 file.o: file.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-header.o: header.c
+header.o: bmp_header.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
 image.o: image.c

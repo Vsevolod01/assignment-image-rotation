@@ -18,17 +18,15 @@ int main(int argc, char** argv) {
 
     struct image img = {0};
 
-    switch (from_bmp(old, &img)) {
-        case READ_OK:
-            fprintf(stdout, "Read successfully\n");
-            break;
-        case READ_INVALID_SIGNATURE:
-            err("Invalid signature\n");
-        case READ_INVALID_BITS:
-            err("Invalid bits\n");
-        case READ_INVALID_HEADER:
-            err("Invalid header\n");
-    }
+    const char* read_errors[] = {[READ_INVALID_SIGNATURE] = "Invalid signature\n",
+            [READ_INVALID_BITS] = "Invalid bits\n",
+            [READ_INVALID_HEADER] = "Invalid header\n",
+            [READ_INVALID_FILE] = "File reading error\n",
+            [READ_IMAGE_ERROR] = "Image reading error\n"
+    };
+    enum read_status rst = from_bmp(old, &img);
+    if (rst != READ_OK) err(read_errors[rst]);
+    else fprintf(stdout, "Read successfully\n");
 
     FILE* new = NULL;
     bool open_new = open_file(&new, "new_file.bmp", "wb");
@@ -37,13 +35,14 @@ int main(int argc, char** argv) {
     }
 
     struct image new_img = rotate(img);
-    switch (to_bmp(new, &new_img)) {
-        case WRITE_OK:
-            fprintf(stdout, "Written successfully\n");
-            break;
-        case WRITE_ERROR:
-            err("Some errors occurred\n");
-    }
+
+    const char* write_errors[] = {[WRITE_HEADER_ERROR] = "Can't write header\n",
+           [WRITE_IMAGE_ERROR] = "Can't write image\n",
+           [WRITE_INVALID_FILE] = "File writing error"
+    };
+    enum write_status wst = to_bmp(new, &new_img);
+    if (wst != WRITE_OK) err(write_errors[wst]);
+    else fprintf(stdout, "Written successfully\n");
 
     bool close_old = close_file(&old);
     if(!close_old) {

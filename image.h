@@ -15,8 +15,6 @@ struct image {
     struct pixel* data;
 };
 
-uint64_t padding(uint8_t width);
-
 enum read_status read_image(FILE *in, struct image *img);
 
 enum write_status write_image(FILE *out, struct image const *p_img);

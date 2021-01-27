@@ -5,7 +5,7 @@
 #include <malloc.h>
 #include "image.h"
 
-uint64_t padding(const uint8_t width) {
+static uint64_t padding(const uint8_t width) {
     const uint8_t mod_4 = width * sizeof(struct pixel) % 4;
     const uint64_t padding = mod_4 ? 4 - mod_4 : mod_4;
     return padding;

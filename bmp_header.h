@@ -2,8 +2,8 @@
 // Created by vsevolod on 24.01.2021.
 //
 
-#ifndef IMAGE_ROTATION_HEADER_H
-#define IMAGE_ROTATION_HEADER_H
+#ifndef IMAGE_ROTATION_BMP_HEADER_H
+#define IMAGE_ROTATION_BMP_HEADER_H
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdbool.h>
@@ -30,4 +30,4 @@ bool read_header( FILE* f, struct bmp_header* header );
 
 bool write_header(FILE *f, struct bmp_header const *p_header);
 
-#endif //IMAGE_ROTATION_HEADER_H
+#endif //IMAGE_ROTATION_BMP_HEADER_H
